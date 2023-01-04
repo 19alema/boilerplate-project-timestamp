@@ -30,11 +30,7 @@ const convertToTimestamp = (date) => {
 
 const convertToUTCString = (date) => {
 
-  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-  // console.log(new Date(2015 - 04 - 07).toLocalString());
-  return new Date(date).toString();
+  return new Date(new Date(date).toJSON()).toUTCString();
 };
 
 // Gets timestamp and utc string of provided date
@@ -102,10 +98,6 @@ app.get("/api/:timestamp", (req, res, next) => {
       utc: convertToUTCString(new Date(convertTimestampToNumber)),
     });
     return next();
-  } else {
-    res.json({
-      error: "Timestamp Not Valid",
-    });
   }
 
   return next();
