@@ -29,7 +29,12 @@ const convertToTimestamp = (date) => {
 };
 
 const convertToUTCString = (date) => {
-  return new Date(date).toISOString();
+
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  // console.log(new Date(2015 - 04 - 07).toLocalString());
+  return new Date(date).toString();
 };
 
 // Gets timestamp and utc string of provided date
@@ -43,6 +48,7 @@ app.get("/api/:date", (req, res, next) => {
     const dateToUTC = convertToUTCString(date);
     res.json({
       unix: + dateToTimestamp,
+      utc: dateToUTC
     });
 
     return next();
@@ -66,7 +72,7 @@ app.get("/api", async (req, res, next) => {
   try {
     let date = new Date();
     res.json({
-      status: "Success",
+
       unix: convertToTimestamp(date),
       utc: convertToUTCString(date),
     });
@@ -92,9 +98,8 @@ app.get("/api/:timestamp", (req, res, next) => {
     checkIfTimestampHasNumbersOnly
   ) {
     res.json({
-      status: "Success",
       unix: convertTimestampToNumber,
-      utc: new Date(convertTimestampToNumber),
+      utc: convertToUTCString(new Date(convertTimestampToNumber)),
     });
     return next();
   } else {
