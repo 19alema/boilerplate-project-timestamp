@@ -43,7 +43,7 @@ app.get("/api/:date", (req, res, next) => {
     const dateToTimestamp = convertToTimestamp(date);
     const dateToUTC = convertToUTCString(date);
     res.json({
-      unix: + dateToTimestamp,
+      unix: Number(dateToTimestamp),
       utc: dateToUTC
     });
 
@@ -67,8 +67,11 @@ app.get("/api/:date", (req, res, next) => {
 app.get("/api", async (req, res, next) => {
   try {
     let date = new Date();
+    const currentTime = date.getHours() +' : '+ date.getMinutes() + ' : ' + date.getSeconds()
+    console.log(currentTime)
     res.json({
-      unix: convertToTimestamp(date)
+      unix: currentTime,
+      utc: currentTime 
     });
   } catch (err) {
     res.json({
