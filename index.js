@@ -68,9 +68,7 @@ app.get("/api", async (req, res, next) => {
   try {
     let date = new Date();
     res.json({
-
-      unix: convertToTimestamp(date),
-      utc: convertToUTCString(date),
+      unix: convertToTimestamp(date)
     });
   } catch (err) {
     res.json({
