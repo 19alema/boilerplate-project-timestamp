@@ -42,9 +42,7 @@ app.get("/api/:date", (req, res, next) => {
     const dateToTimestamp = convertToTimestamp(date);
     const dateToUTC = convertToUTCString(date);
     res.json({
-      status: "Success",
-      unix: dateToTimestamp,
-      utc: dateToUTC,
+      unix: + dateToTimestamp,
     });
 
     return next();
@@ -95,7 +93,7 @@ app.get("/api/:timestamp", (req, res, next) => {
   ) {
     res.json({
       status: "Success",
-      unix: timestamp,
+      unix: convertTimestampToNumber,
       utc: new Date(convertTimestampToNumber),
     });
     return next();
